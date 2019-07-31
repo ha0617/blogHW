@@ -1,0 +1,42 @@
+{% extends 'base.html'%}
+
+{% block contents %}
+<body>
+    {%for blog in posts %}
+        <div class = "container">
+            <br>
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">{{blog.title}}</h4>
+                    <h6 class="card-subtitle mb-2 text-muted" style="text-align:right">{{blog.pub_date|date:'Y-m-d h시i분s초'}}</h6>
+                    <p class="card-text">{{blog.summary}}<a href="{%url 'detail' blog.id %}" class="card-link" style = "color:rgb(167, 167, 167);">...more</a></p>
+                    
+                </div>
+            </div>
+        </div>
+    {%endfor%}
+    <nav>
+        <ul class="pagination">  
+            {% if posts.has_previous %}
+            <li class="page-item "><a class="page-link" href="?page={{ posts.previous_page_number }}">&lt;</a></li>
+            {% endif %} 
+            {% if posts.number > 2 %}
+            <li class="page-item"><a class="page-link" href="?page=1">&lt;&lt;</a></li>
+            {%endif%}
+            {% if posts.has_next %}
+            <li class="page-item ml-auto"><a class="page-link" href="?page={{ posts.next_page_number }}">&gt;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+</body>
+
+<style>
+    .card-subtitle{
+        font-size:12px;
+    }
+    .card-text{
+        padding:0px 10px 0px 10px;
+    }
+</style>
+{% endblock %}
